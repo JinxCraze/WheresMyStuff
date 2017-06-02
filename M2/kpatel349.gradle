@@ -7,12 +7,12 @@ jar  {
      attributes  'Implementation-Title' : 'M2',
                  'Implementation-Version' : '1.0',
                  'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain' ,
-                 'Class-Path' : 'lib/resources.jar'
+                 'Class-Path' : 'M2/lib/resources.jar'
     }
 }
 
 dependencies {
-    compile files('lib/resources.jar')
+    compile files('M2/lib/resources.jar')
 }
 
 repositories {
