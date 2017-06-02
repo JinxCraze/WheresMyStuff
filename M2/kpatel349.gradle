@@ -14,14 +14,14 @@ repositories {
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.22'
     testCompile 'junit:junit:4.12'
-    compile files('lib/resorces.jar')
+    compile files('lib/resources.jar')
 }
 
 jar {
     manifest {
         attributes('Implementation-Title' : 'M2',
         'Implementation-Version' : '1.0',
-        'Main-Class' : 'src.main.java.edu.gatech.oad.antlab.pkg1.AntLabMain',
+        'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain',
         'Class-Path' : '../../lib/resources.jar')
     }
 }
