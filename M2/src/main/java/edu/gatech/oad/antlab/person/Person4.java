@@ -31,13 +31,13 @@ public class Person4 {
      */
     private String calc(String input) {
       char a;
-      String newInput = "";
+      String changedInput = "";
       for(int i = 0; i < input.length(); i++) {
         a = input.charAt(i);
         a++;
-        newInput += a;
+        changedInput += a;
       }
-      return newInput;
+      return changedInput;
     }
     
     /**
