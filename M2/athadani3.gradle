@@ -1,0 +1,27 @@
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+
+//Make sure that the default type is jar if not specified
+defaultTasks 'jar'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.22'
+    testCompile 'junit:junit:4.12'
+    compile files('lib/resources.jar')
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title' : 'M2',
+        'Implementation-Version' : '1.0',
+        'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain',
+        'Class-Path' : '../../lib/resources.jar')
+    }
+}
