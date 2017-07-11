@@ -39,7 +39,8 @@ public class CreateFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setData();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(),
+                    MainActivity.class));
             }
         });
     }

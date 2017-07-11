@@ -4,7 +4,7 @@ package com.lithub.team8.wheresmystuff.model;
   * Created by Kirtan on 6/28/2017.
   */
 
-public class admin {
+public class Admin {
 
     private String name;
     private String password;
@@ -16,7 +16,7 @@ public class admin {
      * @param name
      * @param password
      */
-    public admin(String name, String password, Integer id){
+    public Admin(String name, String password, Integer id) {
         this.name = name;
         this.password = password;
         this.id = id;

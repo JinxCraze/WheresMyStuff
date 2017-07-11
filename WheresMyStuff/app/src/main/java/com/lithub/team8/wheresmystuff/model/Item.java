@@ -29,7 +29,10 @@ public class Item implements Parcelable {
     }
 
 
-    public long getId(){ return id; }
+    public long getId() {
+        return id;
+    }
+
     /**
      * getter
      * @return
@@ -50,13 +53,17 @@ public class Item implements Parcelable {
      * getter
      * @return
      */
-    public String getType() { return type; }
+    public String getType() {
+        return type;
+    }
 
     /**
      * setter
      * @param type
      */
-    public void setType(String type) { this.type = type; }
+    public void setType(String type) {
+        this.type = type;
+    }
 
     /**
      * getter
@@ -95,7 +102,9 @@ public class Item implements Parcelable {
      * @return
      */
     @Override
-    public String toString() { return name + "\n" + description + "\n" + location; }
+    public String toString() {
+        return name + "\n" + description + "\n" + location;
+    }
 
     /* *********************************
      * These methods are required by the parcelable interface
@@ -122,7 +131,7 @@ public class Item implements Parcelable {
     }
 
     /* *************************
-       If you add new instance vars to Student, you will need to add them to the write
+       If you add new instance vars to Student, you will need to add them
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -136,12 +145,12 @@ public class Item implements Parcelable {
      */
     public static final Parcelable.Creator<Item> CREATOR
             = new Parcelable.Creator<Item>() {
-        public Item createFromParcel(Parcel in) {
-            return new Item(in);
-        }
+                public Item createFromParcel(Parcel in) {
+                    return new Item(in);
+                }
 
-        public Item[] newArray(int size) {
-            return new Item[size];
-        }
-    };
+                public Item[] newArray(int size) {
+                    return new Item[size];
+                }
+            };
 }

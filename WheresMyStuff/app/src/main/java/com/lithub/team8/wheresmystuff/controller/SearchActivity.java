@@ -3,18 +3,14 @@
  */
 package com.lithub.team8.wheresmystuff.controller;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.lithub.team8.wheresmystuff.R;
 import com.lithub.team8.wheresmystuff.model.Item;
@@ -24,7 +20,7 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
-    ArrayAdapter<Item> adapter;
+    private ArrayAdapter<Item> adapter;
 
     /**
      *
@@ -40,7 +36,8 @@ public class SearchActivity extends AppCompatActivity {
         ArrayList<Item> arrayItems = new ArrayList<>();
         arrayItems.addAll(Model.getItems());
 
-        adapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_list_item_1, arrayItems);
+        adapter = new ArrayAdapter<>(SearchActivity.this,
+            android.R.layout.simple_list_item_1, arrayItems);
         lv.setAdapter(adapter);
 
 //        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -49,12 +46,14 @@ public class SearchActivity extends AppCompatActivity {
 //            TextView location = (TextView) findViewById(R.id.ilocation);
 //
 //            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                int position, long id) {
 //                Item selected = (Item) (lv.getItemAtPosition(position));
 //                name.setText(selected.getName());
 //                description.setText(selected.getDescription());
 //                location.setText(selected.getLocation());
-//                startActivity(new Intent(getApplicationContext(), ShowActivity.class));
+//                startActivity(new Intent(getApplicationContext(),
+//                    ShowActivity.class));
 //            }
 //        });
     }

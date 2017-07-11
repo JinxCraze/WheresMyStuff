@@ -42,23 +42,29 @@ public class MainActivity extends AppCompatActivity {
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(),
+                        LoginActivity.class));
             }
         });
 
-        FloatingActionButton search = (FloatingActionButton) findViewById(R.id.search);
+        FloatingActionButton search
+            = (FloatingActionButton) findViewById(R.id.search);
         search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-            }
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(),
+                        SearchActivity.class));
+                }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab
+            = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {startActivity(new Intent(getApplicationContext(), CreateFormActivity.class));
-
-            }
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(),
+                        CreateFormActivity.class));
+                }
         });
     }
 
@@ -72,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder>{
+    public static class RVAdapter extends
+        RecyclerView.Adapter<RVAdapter.ViewHolder> {
+
         /**
          * Collection of the items to be shown in this list.
          */
@@ -82,21 +90,29 @@ public class MainActivity extends AppCompatActivity {
          * set the items to be used by the adapter
          * @param items the list of items to be displayed in the recycler view
          */
-        public RVAdapter(List<Item> items) { this.items = items; }
+        public RVAdapter(List<Item> items) {
+            this.items = items;
+        }
+
         /**
          *
          */
         @Override
-        public int getItemCount() {return items.size();}
+        public int getItemCount() {
+            return items.size();
+        }
+
         /**
          * @param viewGroup type of group
          * @param i postition
          */
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_layout_content, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(
+                R.layout.item_layout_content, viewGroup, false);
             return new ViewHolder(v);
         }
+
         /**
          * @param viewHolder type of group
          * @param i position
@@ -105,11 +121,13 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
             final Model model = Model.getInstance();
 
-            viewHolder.itemName.setText(model.get(i).getType() + ": " + model.get(i).getName());
+            viewHolder.itemName.setText(model.get(i).getType() + ": "
+                + model.get(i).getName());
             viewHolder.itemLocation.setText(model.get(i).getLocation());
             viewHolder.itemDescription.setText(model.get(i).getDescription());
 
         }
+
         /**
          * @param recyclerView
          */
@@ -117,23 +135,28 @@ public class MainActivity extends AppCompatActivity {
         public void onAttachedToRecyclerView(RecyclerView recyclerView) {
             super.onAttachedToRecyclerView(recyclerView);
         }
+
         /**
          * Inner class to work with recyclerView
          */
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public final TextView itemName;
-            public final TextView itemLocation;
-            public final TextView itemDescription;
+
+            private final TextView itemName;
+            private final TextView itemLocation;
+            private final TextView itemDescription;
+
             /**
              * Contstruction
              * @param itemView
              */
             ViewHolder(View itemView) {
                 super(itemView);
-                itemName= (TextView)itemView.findViewById(R.id.name);
-                itemLocation = (TextView)itemView.findViewById(R.id.location);
-                itemDescription = (TextView)itemView.findViewById(R.id.description);
+                itemName = (TextView) itemView.findViewById(R.id.name);
+                itemLocation = (TextView) itemView.findViewById(R.id.location);
+                itemDescription
+                    = (TextView) itemView.findViewById(R.id.description);
             }
+
             /**
              * toString method
              */
@@ -143,4 +166,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-

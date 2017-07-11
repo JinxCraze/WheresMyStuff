@@ -7,53 +7,63 @@ import java.util.ArrayList;
   */
 
 public class Model {
+
     /**
      *
      */
     private static final Model _instance = new Model();
+
     /**
      *
      */
     private static ArrayList<Item> items;
+
     /**
      *
      */
-    public static Model getInstance(){return _instance;}
+    public static Model getInstance() {
+        return _instance;
+    }
+
     /**
      *
      */
-    private Model(){
+    private Model() {
         items = new ArrayList<>();
     }
 
     /**
      *
      */
-    public static ArrayList<Item> getItems() { return items; }
+    public static ArrayList<Item> getItems() {
+        return items;
+    }
+
     /**
      *
      */
     public void add(Item item) {
         items.add(item);
     }
+
     /**
      *
      */
-    public int size(){
+    public int size() {
         return items.size();
     }
+
     /**
      *
      */
     public Item get(int index) {
         return items.get(index);
     }
+
     /**
      *
      */
     public static void setItems(ArrayList<Item> items) {
         Model.items = items;
     }
-
-
 }
