@@ -258,7 +258,7 @@ public class RegisterActivity extends AppCompatActivity implements
     }
 
     /**
-     * checs profile
+     * checks profile
      */
     private interface ProfileQuery {
         String[] PROJECTION = {
