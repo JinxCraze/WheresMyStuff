@@ -139,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity implements
     }
 
     /**
-     * wheen stop do this
+     * when stop do this
      */
     @Override
     public void onStop() {
@@ -240,7 +240,7 @@ public class RegisterActivity extends AppCompatActivity implements
     }
 
     /**
-     * when loading is finsihed
+     * when loading is finished
      */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
