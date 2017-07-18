@@ -2,6 +2,7 @@ package com.lithub.team8.wheresmystuff.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,41 +14,60 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lithub.team8.wheresmystuff.R;
 import com.lithub.team8.wheresmystuff.model.Item;
 import com.lithub.team8.wheresmystuff.model.Model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 import static android.graphics.Color.RED;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "";
-    private List<Item> list = Model.getItems();
-    DatabaseReference mItemReference;
+    private DatabaseReference mDatabase;
 
     @Override
     protected  void onStart() {
         super.onStart();
-        ValueEventListener itemListener = new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Item item = dataSnapshot.getValue(Item.class);
-                list.add(item);
+            public void onDataChange(DataSnapshot d) {//TODO: figure out why only gets one instance
+
+                Map<String,Object> allItems =(HashMap<String,Object>)d.getValue();
+                List<Object> toObject = new ArrayList<>(allItems.values());
+                Object o = toObject.get(0);
+                ArrayList<String> keys = new ArrayList<>();
+                String value = o.toString();
+                String pat = "\\}";
+                while(value.contains("}")) {
+                    keys.add("-" + value.split("-")[1].split("=")[0]);
+                    value = value.split(pat)[1];
+                }
+                for(String s: keys) {
+                    for (DataSnapshot postSnapshot: d.getChildren()) {
+                        Item item = postSnapshot.child(s).getValue(Item.class);
+                        Model.getInstance().add(item);
+                    }
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+
             }
-        };
-        mItemReference.addValueEventListener(itemListener);
+        });
     }
 
     /**
@@ -63,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         setupRecyclerView((RecyclerView) mRecyclerView);
         setTitle("Where\'s My Stuff? Feed");
 
-        RVAdapter adapter = new RVAdapter(list);
+        RVAdapter adapter = new RVAdapter(Model.getItems());
         ((RecyclerView) mRecyclerView).setAdapter(adapter);
 
         Button mLogoutButton = (Button) findViewById(R.id.buttonLogout);
@@ -116,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static class RVAdapter extends
+    protected static class RVAdapter extends
         RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
         /**
@@ -159,14 +179,15 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
             final Model model = Model.getInstance();
 
-            if(model.get(i).getType().equals("Lost Item")) {
-                viewHolder.itemName.setTextColor(RED);
+            if(!(model.size() <= i) && model.get(i) != null) {
+                if (model.get(i).getType().equals("Lost Item")) {
+                    viewHolder.itemName.setTextColor(RED);
+                }
+                viewHolder.itemName.setText(model.get(i).getType() + ": "
+                        + model.get(i).getName());
+                viewHolder.itemLocation.setText(model.get(i).getLocation());
+                viewHolder.itemDescription.setText(model.get(i).getDescription());
             }
-            viewHolder.itemName.setText(model.get(i).getType() + ": "
-                + model.get(i).getName());
-            viewHolder.itemLocation.setText(model.get(i).getLocation());
-            viewHolder.itemDescription.setText(model.get(i).getDescription());
-
         }
 
         /**

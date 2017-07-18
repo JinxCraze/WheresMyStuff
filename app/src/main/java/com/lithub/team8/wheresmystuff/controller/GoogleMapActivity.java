@@ -59,7 +59,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         if (list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 current = list.get(i);
-                currentLL = current.getLocationLL();
+                currentLL = new LatLng(current.getLat(), current.getLng());
                 currentType = current.getType();
                 name = current.getName();
 
@@ -78,7 +78,6 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                             .title(currentType)
                             .snippet(name));
                 }
-
             }
         }
     }

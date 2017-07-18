@@ -21,9 +21,7 @@ public class Model {
     /**
      *
      */
-    public static Model getInstance() {
-        return _instance;
-    }
+    public static Model getInstance() { return _instance; }
 
     /**
      *
@@ -40,7 +38,8 @@ public class Model {
     }
 
     /**
-     *
+     *  adds an item object
+     * @param item one item object
      */
     public void add(Item item) {
         items.add(item);
@@ -55,6 +54,8 @@ public class Model {
 
     /**
      *
+     * @param index looks for item at that index
+     * @return item at index
      */
     public Item get(int index) {
         return items.get(index);

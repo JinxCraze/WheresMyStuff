@@ -18,8 +18,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lithub.team8.wheresmystuff.R;
 import com.lithub.team8.wheresmystuff.model.Item;
 import com.lithub.team8.wheresmystuff.model.Model;
@@ -43,7 +46,7 @@ public class CreateFormActivity extends FragmentActivity
     private String itemName;
     private String itemLocation;
     private String itemDescription;
-    private LatLng itemLocationLL;
+    private LatLng itemLatLng;
 
     private DatabaseReference mDatabase;
 
@@ -85,19 +88,16 @@ public class CreateFormActivity extends FragmentActivity
         itemLocation = getAddress();
         itemDescription = mItemDescription.getText().toString();
         itemType = mItemType.getSelectedItem().toString();
-        itemLocationLL = currentPosition;
+        itemLatLng = currentPosition;
     }
     /**
      *
      */
     private void setData() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         getData();
-        Item item = new Item(itemName, itemDescription, itemLocation, itemType, itemLocationLL);
-        if (itemType.equals("Lost Item")) {
-            mDatabase.child("Lost Item").child(String.valueOf(item.getId())).child(itemName).setValue(item);
-        } else {
-            mDatabase.child("Found Item").child(String.valueOf(item.getId())).child(itemName).setValue(item);
-        }
+        Item item = new Item(itemName, itemDescription, itemLocation, itemType, itemLatLng.latitude, itemLatLng.longitude);
+        mDatabase.child("Item").push().setValue(item);
         Model.getInstance().add(item);
     }
 

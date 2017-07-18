@@ -1,52 +1,60 @@
 package com.lithub.team8.wheresmystuff.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.android.gms.maps.model.LatLng;
 
 /**
   * Created by Kirtan on 6/28/2017.
   */
-public class Item implements Parcelable {
+public class Item {
 
     private String name;
     private String description;
     private String location;
     private String type;
+    private double lat;
+    private double lng;
 
-    private LatLng locationLL;
-    private static long id = 0;
-
+    private Item item;
 
     public Item() {
-
+        //needed for firebase database
     }
+
     /**
      * constructor
-     * @param name name of Item
+     *
+     * @param name        name of Item
      * @param description description of Item
-     * @param location location of Item
+     * @param location    location of Item
      */
-    public Item(String name, String description, String location, String type, LatLng locationLL) {
+    public Item(String name, String description, String location, String type, double lat, double lng) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.type = type;
-        this.locationLL = locationLL;
-        id = id++;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     /**
-     * getter for ID
-     * @return Id
+     * getter for longitude
+     *
+     * @return longitude
      */
-    public long getId() {
-        return id;
+    public double getLng() {
+        return lng;
     }
+
+    /**
+     * setter for id
+     * @param lng sets longitude
+     */
+    public void setLng(double lng) { this.lng = lng; }
+
 
     /**
      * getter for Name
+     *
      * @return Name
      */
     public String getName() {
@@ -55,6 +63,7 @@ public class Item implements Parcelable {
 
     /**
      * setter for Name
+     *
      * @param name name of Item
      */
     public void setName(String name) {
@@ -63,6 +72,7 @@ public class Item implements Parcelable {
 
     /**
      * getter for Item Type
+     *
      * @return itemType
      */
     public String getType() {
@@ -71,6 +81,7 @@ public class Item implements Parcelable {
 
     /**
      * setter for type
+     *
      * @param type sets type of item
      */
     public void setType(String type) {
@@ -79,6 +90,7 @@ public class Item implements Parcelable {
 
     /**
      * getter for description
+     *
      * @return description
      */
     public String getDescription() {
@@ -87,6 +99,7 @@ public class Item implements Parcelable {
 
     /**
      * setter for description
+     *
      * @param description sets description to this one
      */
     public void setDescription(String description) {
@@ -95,6 +108,7 @@ public class Item implements Parcelable {
 
     /**
      * getter for location
+     *
      * @return location
      */
     public String getLocation() {
@@ -103,6 +117,7 @@ public class Item implements Parcelable {
 
     /**
      * sets location
+     *
      * @param location sets location to this
      */
     public void setLocation(String location) {
@@ -110,23 +125,24 @@ public class Item implements Parcelable {
     }
 
     /**
-     * getter for Latitude and Longitude
-     * @return lat and long
+     * getter for Latitude
+     *
+     * @return lat
      */
-    public LatLng getLocationLL() {
-        return locationLL;
+    public double getLat() {
+        return lat;
     }
 
     /**
-     * setter for Latitude and Longitude
-     * @param locationLL sets lat and long to this
+     * setter for Latitude
+     *
+     * @param lat sets lat to this
      */
-    public void setLocationLL(LatLng locationLL) {
-        this.locationLL = locationLL;
-    }
+    public void setLat(double lat) { this.lat = lat; }
 
     /**
      * toString
+     *
      * @return tostring of Item
      */
     @Override
@@ -138,47 +154,4 @@ public class Item implements Parcelable {
      * These methods are required by the parcelable interface
      *
      */
-
-    /**
-     *  constructor
-     * @param in whatever is passed in
-     */
-    private Item(Parcel in) {
-        name = in.readString();
-        description = in.readString();
-        location = in.readString();
-    }
-
-    /**
-     * describe contents
-     * @return 0
-     */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    /* *************************
-       If you add new instance vars to Student, you will need to add them
-     */
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(description);
-        dest.writeString(location);
-    }
-
-    /**
-     *  to make parseable
-     */
-    public static final Parcelable.Creator<Item> CREATOR
-            = new Parcelable.Creator<Item>() {
-                public Item createFromParcel(Parcel in) {
-                    return new Item(in);
-                }
-
-                public Item[] newArray(int size) {
-                    return new Item[size];
-                }
-            };
 }
