@@ -1,7 +1,10 @@
 package com.lithub.team8.wheresmystuff.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,6 +19,8 @@ import com.lithub.team8.wheresmystuff.model.Item;
 import com.lithub.team8.wheresmystuff.model.Model;
 
 import java.util.List;
+
+import static com.lithub.team8.wheresmystuff.R.layout.activity_show;
 
 public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -45,13 +50,13 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //googleMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
         mMap = googleMap;
         Marker m;
         Item current;
         LatLng currentLL;
         String currentType;
         String name;
+        String description;
 
         LatLng atlanta = new LatLng(33.7490, -84.3880);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
@@ -61,22 +66,22 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                 current = list.get(i);
                 currentLL = new LatLng(current.getLat(), current.getLng());
                 currentType = current.getType();
+                description = current.getDescription();
                 name = current.getName();
-
                 if (currentType.equals("Found Item")) {
                     //Found items have green markers
                     m = mMap.addMarker(new MarkerOptions()
                             .position(currentLL)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                            .title(currentType)
-                            .snippet(name));
+                            .title(name)
+                            .snippet(description));
                 } else {
                     //Lost items have red markers
                     m = mMap.addMarker(new MarkerOptions()
                             .position(currentLL)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                            .title(currentType)
-                            .snippet(name));
+                            .title(name)
+                            .snippet(description));
                 }
             }
         }

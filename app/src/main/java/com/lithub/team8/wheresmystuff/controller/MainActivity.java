@@ -2,6 +2,7 @@ package com.lithub.team8.wheresmystuff.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -34,41 +35,8 @@ import static android.graphics.Color.RED;
 
 public class MainActivity extends AppCompatActivity {
 
+    private List<Item> list = new ArrayList<>();
     private DatabaseReference mDatabase;
-
-    @Override
-    protected  void onStart() {
-        super.onStart();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot d) {//TODO: figure out why only gets one instance
-
-                Map<String,Object> allItems =(HashMap<String,Object>)d.getValue();
-                List<Object> toObject = new ArrayList<>(allItems.values());
-                Object o = toObject.get(0);
-                ArrayList<String> keys = new ArrayList<>();
-                String value = o.toString();
-                String pat = "\\}";
-                while(value.contains("}")) {
-                    keys.add("-" + value.split("-")[1].split("=")[0]);
-                    value = value.split(pat)[1];
-                }
-                for(String s: keys) {
-                    for (DataSnapshot postSnapshot: d.getChildren()) {
-                        Item item = postSnapshot.child(s).getValue(Item.class);
-                        Model.getInstance().add(item);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     /**
      * does this when activity is created
@@ -77,6 +45,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("Item");
+        mDatabase.keepSynced(true);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Model.getInstance().clear();
+                list.clear();
+                for(DataSnapshot d : dataSnapshot.getChildren()) {
+                    Item item = d.getValue(Item.class);
+                    list.add(item);
+                }
+                for(Item i : list) {
+                    Model.getInstance().add(i);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         setContentView(R.layout.activity_main);
         View mRecyclerView = findViewById(R.id.items_list);
         assert mRecyclerView != null;
@@ -131,8 +120,7 @@ public class MainActivity extends AppCompatActivity {
      * @param recyclerView  the view that needs this adapter
      */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        Model model = Model.getInstance();
-        recyclerView.setAdapter(new RVAdapter(model.getItems()));
+        recyclerView.setAdapter(new RVAdapter(list));
     }
 
 
@@ -148,17 +136,13 @@ public class MainActivity extends AppCompatActivity {
          * set the items to be used by the adapter
          * @param items the list of items to be displayed in the recycler view
          */
-        private RVAdapter(List<Item> items) {
-            this.items = items;
-        }
+        private RVAdapter(List<Item> items) { this.items = items; }
 
         /**
-         *
+         * @return the size of the array
          */
         @Override
-        public int getItemCount() {
-            return items.size();
-        }
+        public int getItemCount() { return items.size(); }
 
         /**
          * @param viewGroup type of group
@@ -186,7 +170,8 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.itemName.setText(model.get(i).getType() + ": "
                         + model.get(i).getName());
                 viewHolder.itemLocation.setText(model.get(i).getLocation());
-                viewHolder.itemDescription.setText(model.get(i).getDescription());
+                viewHolder.itemDescription.setText(model.get(i)
+                    .getDescription());
             }
         }
 
