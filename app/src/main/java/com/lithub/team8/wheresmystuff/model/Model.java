@@ -19,7 +19,7 @@ public class Model {
     private static ArrayList<Item> items;
 
     /**
-     *
+     * returns the Model;
      */
     public static Model getInstance() { return _instance; }
 
@@ -29,6 +29,11 @@ public class Model {
     private Model() {
         items = new ArrayList<>();
     }
+
+    /**
+     * clears all entries from items arrayList
+     */
+    public void clear() { items.clear();}
 
     /**
      *
@@ -46,7 +51,7 @@ public class Model {
     }
 
     /**
-     *
+     * returns size of array
      */
     public int size() {
         return items.size();
@@ -61,10 +66,4 @@ public class Model {
         return items.get(index);
     }
 
-    /**
-     *
-     */
-    public static void setItems(ArrayList<Item> items) {
-        Model.items = items;
-    }
 }

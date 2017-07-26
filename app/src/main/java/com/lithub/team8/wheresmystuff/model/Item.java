@@ -1,7 +1,5 @@
 package com.lithub.team8.wheresmystuff.model;
 
-import com.google.android.gms.maps.model.LatLng;
-
 /**
   * Created by Kirtan on 6/28/2017.
   */
@@ -13,8 +11,6 @@ public class Item {
     private String type;
     private double lat;
     private double lng;
-
-    private Item item;
 
     public Item() {
         //needed for firebase database
@@ -46,13 +42,6 @@ public class Item {
     }
 
     /**
-     * setter for id
-     * @param lng sets longitude
-     */
-    public void setLng(double lng) { this.lng = lng; }
-
-
-    /**
      * getter for Name
      *
      * @return Name
@@ -79,14 +68,6 @@ public class Item {
         return type;
     }
 
-    /**
-     * setter for type
-     *
-     * @param type sets type of item
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
 
     /**
      * getter for description
@@ -98,15 +79,6 @@ public class Item {
     }
 
     /**
-     * setter for description
-     *
-     * @param description sets description to this one
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
      * getter for location
      *
      * @return location
@@ -115,14 +87,6 @@ public class Item {
         return location;
     }
 
-    /**
-     * sets location
-     *
-     * @param location sets location to this
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     /**
      * getter for Latitude
@@ -132,13 +96,6 @@ public class Item {
     public double getLat() {
         return lat;
     }
-
-    /**
-     * setter for Latitude
-     *
-     * @param lat sets lat to this
-     */
-    public void setLat(double lat) { this.lat = lat; }
 
     /**
      * toString

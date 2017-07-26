@@ -37,23 +37,6 @@ public class SearchActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(SearchActivity.this,
             android.R.layout.simple_list_item_1, arrayItems);
         lv.setAdapter(adapter);
-
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            TextView name = (TextView) findViewById(R.id.iname);
-//            TextView description = (TextView) findViewById(R.id.idescription);
-//            TextView location = (TextView) findViewById(R.id.ilocation);
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                int position, long id) {
-//                Item selected = (Item) (lv.getItemAtPosition(position));
-//                name.setText(selected.getName());
-//                description.setText(selected.getDescription());
-//                location.setText(selected.getLocation());
-//                startActivity(new Intent(getApplicationContext(),
-//                    ShowActivity.class));
-//            }
-//        });
     }
 
     /**

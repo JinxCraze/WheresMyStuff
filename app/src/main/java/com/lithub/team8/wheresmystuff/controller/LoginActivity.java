@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     /**
-     * populates auto
+     * populates automatically
      */
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -299,7 +299,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     /**
-     * cheks if ass is valid
+     * checks if pass is valid
      */
     private boolean isPasswordValid(String password) {
         return password.length() > 4;
@@ -357,7 +357,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     /**
-     * finishes loadeing
+     * finishes loading
      */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
@@ -380,7 +380,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     /**
-     * populates auto ocmplete
+     * populates auto complete
      * @param emailAddressCollection the collection of emailaddresses
      */
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
@@ -422,7 +422,7 @@ public class LoginActivity extends AppCompatActivity implements
         }
 
         /**
-         * inbackground
+         * 0inbackground
          */
         @Override
         protected Boolean doInBackground(Void... params) {

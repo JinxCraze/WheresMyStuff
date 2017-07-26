@@ -2,20 +2,16 @@ package com.lithub.team8.wheresmystuff.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,9 +22,7 @@ import com.lithub.team8.wheresmystuff.model.Item;
 import com.lithub.team8.wheresmystuff.model.Model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 import static android.graphics.Color.RED;
@@ -36,7 +30,6 @@ import static android.graphics.Color.RED;
 public class MainActivity extends AppCompatActivity {
 
     private List<Item> list = new ArrayList<>();
-    private DatabaseReference mDatabase;
 
     /**
      * does this when activity is created
@@ -46,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Item");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Item");
         mDatabase.keepSynced(true);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -146,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * @param viewGroup type of group
-         * @param i postition
+         * @param i position
          */
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -193,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             private final TextView itemDescription;
 
             /**
-             * Contstruction
+             * Construction
              * @param itemView the itemview we want
              */
             ViewHolder(View itemView) {

@@ -18,11 +18,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.lithub.team8.wheresmystuff.R;
 import com.lithub.team8.wheresmystuff.model.Item;
 import com.lithub.team8.wheresmystuff.model.Model;
@@ -34,11 +31,7 @@ import java.util.Locale;
 public class CreateFormActivity extends FragmentActivity
         implements GoogleMap.OnMapClickListener, OnMapReadyCallback {
 
-    private EditText mItemName;
-    private EditText mItemDescription;
-    private Spinner mItemType;
-    private Button submit;
-    private GoogleMap mMap;
+
     private Marker mMarker;
     private LatLng currentPosition;
 
@@ -66,7 +59,7 @@ public class CreateFormActivity extends FragmentActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        submit = (Button) findViewById(R.id.submit_button);
+        Button submit = (Button) findViewById(R.id.submit_button);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,12 +70,12 @@ public class CreateFormActivity extends FragmentActivity
         });
     }
     /**
-     *
+     * gets data from the text fields
      */
     private void getData() {
-        mItemName = (EditText) findViewById(R.id.name_text);
-        mItemDescription = (EditText) findViewById(R.id.description_text);
-        mItemType = (Spinner) findViewById(R.id.form_option);
+        EditText mItemName = (EditText) findViewById(R.id.name_text);
+        EditText mItemDescription = (EditText) findViewById(R.id.description_text);
+        Spinner mItemType = (Spinner) findViewById(R.id.form_option);
 
         itemName = mItemName.getText().toString();
         itemLocation = getAddress();
@@ -91,7 +84,7 @@ public class CreateFormActivity extends FragmentActivity
         itemLatLng = currentPosition;
     }
     /**
-     *
+     * sets the data into model array and firebase
      */
     private void setData() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -101,9 +94,13 @@ public class CreateFormActivity extends FragmentActivity
         Model.getInstance().add(item);
     }
 
+    /**
+     * makes sure the map is ready to be shown
+     * @param googleMap imports google maps
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        GoogleMap mMap = googleMap;
 
         LatLng atlanta = new LatLng(33.7490, -84.3880);
         currentPosition = atlanta;
@@ -118,6 +115,10 @@ public class CreateFormActivity extends FragmentActivity
         mMap.setOnMapClickListener(this);
     }
 
+    /**
+     * when the map is clicked do this
+     * @param point latitude and longitude points
+     */
     public void onMapClick(LatLng point) {
         currentPosition = point;
         mMarker.setPosition(point);

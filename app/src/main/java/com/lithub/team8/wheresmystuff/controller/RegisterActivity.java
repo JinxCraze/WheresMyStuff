@@ -30,19 +30,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.lithub.team8.wheresmystuff.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * A login screen that offers login via email/password.
  */
 public class RegisterActivity extends AppCompatActivity implements
     LoaderCallbacks<Cursor> {
-
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -59,8 +51,6 @@ public class RegisterActivity extends AppCompatActivity implements
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
 
     //Firebase references
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -115,8 +105,8 @@ public class RegisterActivity extends AppCompatActivity implements
             }
         };
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        View mLoginFormView = findViewById(R.id.login_form);
+        View mProgressView = findViewById(R.id.login_progress);
     }
 
     /**
@@ -208,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity implements
     }
 
     /**
-     * create loadaer
+     * create loader
      */
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -230,14 +220,12 @@ public class RegisterActivity extends AppCompatActivity implements
     }
 
     /**
-     * when loading is finsihed
+     * when loading is finished
      */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
     }
@@ -248,7 +236,7 @@ public class RegisterActivity extends AppCompatActivity implements
     }
 
     /**
-     * checs profile
+     * checks profile
      */
     private interface ProfileQuery {
         String[] PROJECTION = {
